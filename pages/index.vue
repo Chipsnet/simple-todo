@@ -1,78 +1,39 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        simple-todo
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+    <div class="main">
+        <div class="bg-gray-200 text-3xl p-4">
+            <p>Simple TODO with Nuxt.js</p>
+        </div>
+        <div class="py-5 px-7">
+            <input @keyup.enter="addTodo" type="text" placeholder="タスクを入力してEnter" class="border-2 border-gray-900 w-5/12">
+        </div>
+        <div v-for="todo in todos" :key="todo.id" class="px-4 py-2">
+            <div @click="removeTodo(todo)" class="border-2 rounded-sm border-gray-900 p-4">
+                <p>{{todo}}</p>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-export default {}
+import { mapMutations } from 'vuex'
+
+export default {
+    computed: {
+        todos () {
+            return this.$store.state.tasks
+        }
+    },
+    methods: {
+        addTodo (e) {
+            this.$store.commit('add', e.target.value)
+            e.target.value = ''
+        },
+        removeTodo (todo) {
+            console.log(todo);
+            this.$store.commit('remove', todo)
+        }
+    }
+};
 </script>
 
-<style>
-/* Sample `apply` at-rules with Tailwind CSS
-.container {
-@apply min-h-screen flex justify-center items-center text-center mx-auto;
-}
-*/
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
+<style scoped></style>
