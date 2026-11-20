@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "core-js": "3.11.0",
-    "nuxt": "2.15.4"
+    "nuxt": "2.18.1"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "4.0.3",
